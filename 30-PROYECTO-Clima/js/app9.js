@@ -75,6 +75,7 @@ function consultarAPI_temperatura(ciudad, pais) {
 
       mostrarClima(data)
       mostrarHistorial()
+      imagenClima(data.id)
     })
 }
 
