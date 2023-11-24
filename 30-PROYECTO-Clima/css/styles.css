@@ -263,8 +263,8 @@ html {
 /* Estilos para el widget */
 #openweathermap-widget-container {
   position: fixed;
-  top: 25%;
-  left: 80%;
+  top: 22%;
+  left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
   border: 0;

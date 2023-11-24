@@ -75,7 +75,7 @@ function consultarAPI_temperatura(ciudad, pais) {
 
       mostrarClima(data)
       mostrarHistorial()
-      imagenClima(data.id)
+      widgeetClima(data.id)
     })
 }
 
@@ -91,8 +91,8 @@ function mostrarClima(clima) {
   const min = kelvintoCentigrados(temp_min)
 
   const nombreCiudad = document.createElement("p")
-  nombreCiudad.textContent = `Clima en ${name}`
-  nombreCiudad.classList.add("font-bold", "text-2xl")
+  // nombreCiudad.textContent = `Clima en ${name}`
+  // nombreCiudad.classList.add("font-bold", "text-2xl")
 
   const actual = document.createElement("p")
   actual.innerHTML = `${temperatura} &#8451;`
@@ -118,7 +118,7 @@ function mostrarClima(clima) {
   actualizarColorFondo(temperatura)
   
   if (id) {
-    imagenClima(id)
+    widgeetClima(id)
     console.log(id)
   }
 }
@@ -223,7 +223,7 @@ function actualizarColorFondo(temperatura) {
 
 let widgetContainer = null; // Variable global para almacenar el contenedor actual
 
-function imagenClima(cityID) {
+function widgeetClima(cityID) {
   // Crear un nuevo contenedor y script
   const newContainer = document.createElement("div");
   const newScript = document.createElement("script");
