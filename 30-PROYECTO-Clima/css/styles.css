@@ -260,13 +260,12 @@ html {
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-/* Estilos para el mapa */
-.map {
+/* Estilos para el widget */
+#openweathermap-widget-container {
   position: fixed;
-  width: 500vw;
-  height: 500vh;
-  bottom: 1vh;
-  right: 1vw;
+  top: 25%;
+  left: 80%;
+  transform: translate(-50%, -50%);
   z-index: 1;
   border: 0;
 }

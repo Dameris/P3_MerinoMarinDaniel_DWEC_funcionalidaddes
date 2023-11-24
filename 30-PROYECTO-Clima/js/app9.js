@@ -82,6 +82,7 @@ function mostrarClima(clima) {
   const {
     name,
     main: { temp, temp_max, temp_min },
+    id
   } = clima
 
   const temperatura = kelvintoCentigrados(temp)
@@ -114,6 +115,11 @@ function mostrarClima(clima) {
   resultado.appendChild(resultadoDiv)
 
   actualizarColorFondo(temperatura)
+  
+  if (id) {
+    imagenClima(id)
+    console.log(id)
+  }
 }
 
 function limpiarHTML() {
@@ -214,15 +220,36 @@ function actualizarColorFondo(temperatura) {
   }
 }
 
-function imagenClima(cityID) {
-  const contenedor = document.createElement("div")
-  contenedor.id = "openweathermap-widget-15"
+let widgetContainer = null; // Variable global para almacenar el contenedor actual
 
-  window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  
-  window.myWidgetParam.push({id: 15,cityid: '2520597',appid: '0e8b3f0b7b9e3a433119f371ec0cd51c',units: 'metric',containerid: 'openweathermap-widget-15',  }); 
-   (function() {var script = document.createElement('script');
-   script.async = true;script.charset = "utf-8";
-   script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
-   var s = document.getElementsByTagName('script')[0];
-   s.parentNode.insertBefore(script, s);  })();
+function imagenClima(cityID) {
+  // Crear un nuevo contenedor y script
+  const newContainer = document.createElement("div");
+  const newScript = document.createElement("script");
+  
+  newContainer.id = "openweathermap-widget-container";
+  newScript.async = true;
+  newScript.charset = "utf-8";
+  newScript.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+
+  // Eliminar el contenedor y script anteriores si existen
+  if (widgetContainer) {
+    document.body.removeChild(widgetContainer);
+  }
+
+  // Agregar el nuevo contenedor y script al cuerpo del documento
+  document.body.appendChild(newContainer);
+  newContainer.appendChild(newScript);
+
+  // Configurar parámetros del widget
+  window.myWidgetParam = window.myWidgetParam || [];
+  window.myWidgetParam.push({
+    id: 15,
+    cityid: cityID,
+    appid: "0e8b3f0b7b9e3a433119f371ec0cd51c",
+    units: "metric",
+    containerid: "openweathermap-widget-container",
+  });
+
+  widgetContainer = newContainer;
 }
