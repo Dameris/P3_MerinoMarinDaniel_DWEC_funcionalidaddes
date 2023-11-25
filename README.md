@@ -16,6 +16,6 @@
 3. Widget de OpenWeatherMap  
     Se incorporá la función `widgetClima(cityID)` que recide el ID de la ciudad buscada, y muestra los datos del clima mediante un widget de la API de OpenWeatherMap.  
 
-4. Mapa global desplazable
+4. Mapa global desplazable  
     Se muestra un mapa global desplazable, obtenido de OpenWeatherMap, en la función `insertarMapa()`.  
     En este mapa se puede ver la temperatura, la velocidad del viento, etc. de una forma más visual.
