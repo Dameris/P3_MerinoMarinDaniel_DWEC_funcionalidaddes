@@ -269,3 +269,13 @@ html {
   z-index: 1;
   border: 0;
 }
+
+/* Estilos para el mapa */
+#weatherMap {
+  position: fixed;
+  top: 75%;
+  left: 82%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  border: 0;
+}

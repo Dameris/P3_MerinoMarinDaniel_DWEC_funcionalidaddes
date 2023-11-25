@@ -8,6 +8,7 @@ const resultado = document.querySelector("#resultado")
 window.addEventListener("load", () => {
   formulario.addEventListener("submit", buscarClima)
   mostrarHistorial()
+  insertarMapa()
 })
 
 function buscarClima(e) {
@@ -75,7 +76,7 @@ function consultarAPI_temperatura(ciudad, pais) {
 
       mostrarClima(data)
       mostrarHistorial()
-      widgeetClima(data.id)
+      widgetClima(data.id)
     })
 }
 
@@ -118,8 +119,7 @@ function mostrarClima(clima) {
   actualizarColorFondo(temperatura)
   
   if (id) {
-    widgeetClima(id)
-    console.log(id)
+    widgetClima(id)
   }
 }
 
@@ -158,9 +158,13 @@ function mostrarSpinner() {
 // Función que almacena el historial de búsqueda
 function guardarHistorial(ciudad, pais) {
   const historial = JSON.parse(localStorage.getItem("historial")) || []
-  historial.unshift({ ciudad, pais })
+  const nuevaBusqueda = { ciudad, pais }
 
-  localStorage.setItem("historial", JSON.stringify(historial))
+  // Evitar resultados duplicados en el historial
+  if (!historial.some(item => item.ciudad === nuevaBusqueda.ciudad && item.pais === nuevaBusqueda.pais)) {
+    historial.unshift(nuevaBusqueda);
+    localStorage.setItem("historial", JSON.stringify(historial));
+  }
 
   mostrarHistorial()
 }
@@ -223,34 +227,46 @@ function actualizarColorFondo(temperatura) {
 
 let widgetContainer = null; // Variable global para almacenar el contenedor actual
 
-function widgeetClima(cityID) {
+function widgetClima(cityID) {
   // Crear un nuevo contenedor y script
-  const newContainer = document.createElement("div");
-  const newScript = document.createElement("script");
+  const newContainer = document.createElement("div")
+  const newScript = document.createElement("script")
   
-  newContainer.id = "openweathermap-widget-container";
-  newScript.async = true;
-  newScript.charset = "utf-8";
-  newScript.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+  newContainer.id = "openweathermap-widget-container"
+  newScript.async = true
+  newScript.charset = "utf-8"
+  newScript.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js"
 
   // Eliminar el contenedor y script anteriores si existen
   if (widgetContainer) {
-    document.body.removeChild(widgetContainer);
+    document.body.removeChild(widgetContainer)
   }
 
   // Agregar el nuevo contenedor y script al cuerpo del documento
-  document.body.appendChild(newContainer);
-  newContainer.appendChild(newScript);
+  document.body.appendChild(newContainer)
+  newContainer.appendChild(newScript)
 
   // Configurar parámetros del widget
-  window.myWidgetParam = window.myWidgetParam || [];
+  window.myWidgetParam = window.myWidgetParam || []
   window.myWidgetParam.push({
     id: 15,
     cityid: cityID,
     appid: "0e8b3f0b7b9e3a433119f371ec0cd51c",
     units: "metric",
     containerid: "openweathermap-widget-container",
-  });
+  })
 
-  widgetContainer = newContainer;
+  widgetContainer = newContainer
+}
+
+function insertarMapa() {
+  const weatherMapDiv = document.getElementById("weatherMap")
+
+  const iframe = document.createElement("iframe")
+  iframe.src = "https://openweathermap.org/weathermap?basemap=map&cities=false&layer=temperature&lat=40&lon=-3&zoom=5"
+  iframe.width = "660vw"
+  iframe.height = "440vh"
+
+  weatherMapDiv.innerHTML = ""
+  weatherMapDiv.appendChild(iframe)
 }
