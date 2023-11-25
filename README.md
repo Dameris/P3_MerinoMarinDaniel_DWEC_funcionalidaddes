@@ -3,7 +3,7 @@
 #### Funcionalidades añadidas
 1. Historial de busqueda  
     Se añaden 2 funciones para realizar el historial de búsqueda:
-    - `guardarHistorial(ciudad, pais)`
+    - `guardarHistorial(ciudad, pais)`  
         Se encarga de recibir el nombre de la ciudad (junto con su país), para guardarlo en `LocalStorage`.  
         Controla que no se almacenen ciudades repetidas en el historial.
     - `mostrarHistorial()`  
